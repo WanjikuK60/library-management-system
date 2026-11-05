@@ -17,9 +17,12 @@ npm install
 npx prisma generate
 npx prisma migrate deploy
 npm run db:seed
+npm run build
 ```
 
 `migrate deploy` applies the checked-in PostgreSQL migration, making it suitable for the hosted database. The seed is safe to rerun: it upserts genres by name and books by ISBN. It creates four genres and sixteen books.
+
+Set `JWT_SECRET` in `.env` before starting the API. Run `npm start` after building, or use `npm run start:dev` while developing. The Postman collection in `docs/postman_collection.json` includes the authentication, genre, and book endpoints.
 
 ## Schema Decisions
 
