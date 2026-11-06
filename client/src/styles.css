@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+:root {
+  font-family: 'DM Sans', sans-serif;
+  color: #242a21;
+  background: #f7f5ef;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  --ink: #242a21;
+  --muted: #74776c;
+  --olive: #65704b;
+  --paper: #f7f5ef;
+  --line: #deddd3;
+}
+
+* { box-sizing: border-box; }
+
+body { margin: 0; min-width: 320px; }
+
+a { color: inherit; }
+
+button, input, select { font: inherit; }
+
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+
+.site-header {
+  width: min(1180px, calc(100% - 64px));
+  height: 82px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand { display: inline-flex; gap: 11px; align-items: center; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.04em; }
+.brand-mark { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; color: #f7f5ef; background: var(--olive); font: italic 20px 'Playfair Display', serif; }
+.header-note { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+
+main { flex: 1; }
+
+.home-page, .detail-page, .message-page { width: min(1180px, calc(100% - 64px)); margin: 0 auto; }
+
+.hero { min-height: 460px; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 48px; padding: 58px 0 64px; border-bottom: 1px solid var(--line); }
+.eyebrow { margin: 0 0 18px; color: var(--olive); font-size: 10px; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; }
+.hero h1, .section-heading h2, .detail-copy h1, .message-page h1 { font-family: 'Playfair Display', Georgia, serif; font-weight: 500; letter-spacing: -.045em; }
+.hero h1 { margin: 0; font-size: clamp(46px, 5.2vw, 72px); line-height: 1.04; }
+.hero h1 em { color: var(--olive); font-weight: 500; }
+.hero-description { max-width: 410px; margin: 24px 0 0; color: var(--muted); line-height: 1.8; font-size: 14px; }
+
+.hero-art { position: relative; height: 330px; overflow: hidden; background: #e8e5d9; display: flex; justify-content: center; align-items: end; padding-bottom: 35px; }
+.hero-art::after { position: absolute; content: ''; left: 0; right: 0; bottom: 30px; border-top: 1px solid #c8c3b4; }
+.sun-disc { position: absolute; width: 178px; height: 178px; right: 14%; top: 24px; border-radius: 50%; background: #d3a87c; opacity: .8; }
+.art-book { position: relative; z-index: 1; display: flex; align-items: end; padding: 17px 13px; box-shadow: 7px 8px 12px #49463829; color: #f5ecd8; font: 600 11px/1.35 'Playfair Display', serif; letter-spacing: .07em; }
+.art-book-one { height: 206px; width: 103px; background: #64704f; transform: rotate(-8deg) translateX(13px); }
+.art-book-two { height: 251px; width: 123px; background: #bc704f; transform: rotate(3deg); }
+.art-book-three { height: 190px; width: 107px; background: #435b68; transform: rotate(10deg) translateX(-8px); }
+.art-plant { position: absolute; z-index: 2; right: 24px; bottom: 42px; color: #758061; font-size: 57px; transform: rotate(-15deg); }
+
+.catalog-section { padding: 68px 0 86px; }
+.section-heading { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 30px; }
+.section-heading .eyebrow { margin-bottom: 11px; }
+.section-heading h2 { margin: 0; font-size: 39px; }
+.section-aside { max-width: 300px; margin: 0 0 4px; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.catalog-tools { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+.search-field { display: flex; align-items: center; gap: 10px; width: min(390px, 100%); height: 48px; padding: 0 15px; border: 1px solid var(--line); background: #fbfaf6; }
+.search-icon { color: var(--olive); font-size: 25px; line-height: 1; transform: rotate(-20deg); }
+.search-field input { width: 100%; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 12px; }
+.search-field input::placeholder { color: #929388; }
+.clear-search { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 21px; }
+.genre-filter { position: relative; }
+.genre-filter select { height: 48px; min-width: 160px; padding: 0 36px 0 14px; border: 1px solid var(--line); border-radius: 0; background: #fbfaf6; color: var(--ink); cursor: pointer; font-size: 12px; }
+.filter-hint { display: block; position: absolute; top: 52px; left: 0; width: 230px; color: #8d5b44; font-size: 10px; }
+
+.book-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 34px 22px; }
+.book-card-link { display: block; text-decoration: none; }
+.book-cover { position: relative; display: flex; flex-direction: column; justify-content: center; width: 100%; aspect-ratio: .76; overflow: hidden; padding: 18px 17px; box-shadow: 6px 7px 12px #242a2117; color: #fbf3e5; }
+.book-cover::before, .detail-cover::before { position: absolute; content: ''; top: 0; left: 10px; height: 100%; border-left: 1px solid #ffffff36; }
+.cover-terracotta { background: #b86f51; }
+.cover-olive { background: #69734f; }
+.cover-blue { background: #536978; }
+.cover-plum { background: #796675; }
+.book-cover-stamp { margin-bottom: auto; font-size: 8px; line-height: 1.3; letter-spacing: .12em; opacity: .78; }
+.book-cover-title { margin: 22px 0 12px; font: 600 clamp(14px, 1.7vw, 22px)/1.14 'Playfair Display', Georgia, serif; overflow-wrap: anywhere; }
+.book-cover-line { width: 32px; border-top: 1px solid #ffffff8c; }
+.book-cover-author { margin-top: 12px; font-size: 9px; letter-spacing: .03em; overflow-wrap: anywhere; }
+.book-card-info { padding-top: 13px; }
+.book-card-info h3 { margin: 0 0 5px; font: 600 14px/1.35 'Playfair Display', Georgia, serif; }
+.book-card-info p { margin: 0; color: var(--muted); font-size: 11px; }
+.book-card-link:hover .book-cover { transform: translateY(-4px); box-shadow: 8px 12px 18px #242a2126; }
+.book-cover { transition: transform .18s ease, box-shadow .18s ease; }
+
+.catalog-message { min-height: 195px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--muted); text-align: center; }
+.catalog-message h3 { margin: 10px 0 6px; color: var(--ink); font: 500 21px 'Playfair Display', Georgia, serif; }
+.catalog-message p { margin: 4px 0; font-size: 12px; }
+.catalog-error { color: #8d4936; }
+.empty-mark { color: #b78a5d; font-size: 25px; }
+.spinner { width: 23px; height: 23px; margin-bottom: 12px; border: 2px solid #deddd3; border-top-color: var(--olive); border-radius: 50%; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.site-footer { display: flex; justify-content: space-between; width: min(1180px, calc(100% - 64px)); margin: 0 auto; padding: 22px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 10px; letter-spacing: .04em; }
+
+.detail-page { padding: 38px 0 90px; }
+.back-link { display: inline-block; margin-bottom: 44px; color: var(--muted); text-decoration: none; font-size: 12px; }
+.back-link:hover, .text-link:hover { color: var(--olive); }
+.detail-layout { display: grid; grid-template-columns: minmax(240px, 350px) 1fr; gap: clamp(50px, 9vw, 130px); align-items: center; max-width: 940px; margin: 0 auto; }
+.detail-cover { position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 430px; padding: 36px; overflow: hidden; background: #69734f; box-shadow: 12px 15px 25px #242a211a; color: #fbf3e5; }
+.cover-label { margin-bottom: auto; font-size: 9px; line-height: 1.5; letter-spacing: .14em; }
+.detail-cover-title { font: 600 clamp(30px, 4vw, 49px)/1.08 'Playfair Display', Georgia, serif; overflow-wrap: anywhere; }
+.cover-rule { width: 50px; margin-top: 22px; border-top: 1px solid #ffffff9e; }
+.cover-author { margin-top: 14px; font-size: 12px; }
+.detail-copy .eyebrow { margin-bottom: 14px; }
+.detail-copy h1 { margin: 0; font-size: clamp(40px, 5vw, 64px); line-height: 1.05; }
+.detail-author { margin: 14px 0 25px; color: var(--muted); font-size: 15px; }
+.detail-rule { width: 56px; border-top: 1px solid #92977e; }
+.detail-description { max-width: 500px; margin: 25px 0; color: #5e6258; font: 16px/1.8 'Playfair Display', Georgia, serif; }
+.book-facts { margin: 28px 0 0; border-top: 1px solid var(--line); }
+.book-facts div { display: grid; grid-template-columns: 130px 1fr; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+.book-facts dt { color: var(--muted); }
+.book-facts dd { margin: 0; color: var(--ink); }
+
+.message-page { min-height: 55vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; }
+.message-page h1 { max-width: 680px; margin: 0 0 22px; font-size: clamp(42px, 6vw, 68px); line-height: 1.1; }
+.text-link { color: var(--olive); font-size: 13px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+@media (max-width: 900px) {
+  .book-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .hero { gap: 28px; }
+}
+
+@media (max-width: 650px) {
+  .site-header, .home-page, .detail-page, .message-page, .site-footer { width: min(100% - 36px, 500px); }
+  .site-header { height: 68px; }
+  .header-note { font-size: 10px; }
+  .hero { grid-template-columns: 1fr; gap: 32px; padding: 53px 0 45px; }
+  .hero h1 { font-size: 54px; }
+  .hero-art { height: 265px; }
+  .art-book-one { height: 168px; }
+  .art-book-two { height: 204px; }
+  .art-book-three { height: 156px; }
+  .section-heading { align-items: start; flex-direction: column; gap: 12px; }
+  .section-heading h2 { font-size: 34px; }
+  .catalog-section { padding: 48px 0 62px; }
+  .catalog-tools { align-items: stretch; flex-direction: column; }
+  .search-field, .genre-filter select { width: 100%; }
+  .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .book-cover { padding: 15px 13px; }
+  .book-cover-title { font-size: 18px; }
+  .site-footer { gap: 12px; font-size: 9px; }
+  .detail-layout { grid-template-columns: 1fr; gap: 42px; max-width: 420px; }
+  .detail-cover { min-height: 390px; }
+  .back-link { margin-bottom: 30px; }
+  .detail-page { padding-top: 28px; }
+  .message-page h1 { font-size: 47px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

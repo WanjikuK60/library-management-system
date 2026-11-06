@@ -24,6 +24,18 @@ npm run build
 
 Set `JWT_SECRET` in `.env` before starting the API. Run `npm start` after building, or use `npm run start:dev` while developing. The Postman collection in `docs/postman_collection.json` includes the authentication, genre, and book endpoints.
 
+## Set up the client
+
+The React/Vite catalog runs separately from the API:
+
+```powershell
+cd client
+npm install
+npm run dev
+```
+
+The checked-in `client/.env` points `VITE_API_URL` at `http://localhost:3000`, the API's default local address. Change it when the API runs elsewhere. The client includes catalog search and genre filtering, plus a detail page for each book.
+
 ## Schema Decisions
 
 `Book` references `Genre` through the required `genreId` foreign key instead of embedding a genre name or object in each book. A genre is shared catalog data: storing it once avoids inconsistent spellings and duplicated descriptions, and lets the database enforce that every book points to a real genre. The one-to-many relation also makes it straightforward to list books by genre and update genre details consistently.
