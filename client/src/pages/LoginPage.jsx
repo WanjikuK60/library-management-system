@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { apiUrl } from '../api.js';
+import { useReadingList } from '../context/ReadingListContext.jsx';
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -8,6 +9,7 @@ export default function LoginPage() {
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const { mergeGuestList } = useReadingList();
   const destination = location.state?.from?.pathname || '/';
 
   function updateField(event) {
@@ -31,7 +33,10 @@ export default function LoginPage() {
       if (!data.accessToken) {
         throw new Error('The server did not return an access token.');
       }
-      localStorage.setItem('token', data.accessToken);
+      if (!data.user?.id) {
+        throw new Error('The server did not return an account ID.');
+      }
+      await mergeGuestList(data.user.id, data.accessToken);
       navigate(destination, { replace: true });
     } catch (requestError) {
       setError(requestError.message || 'Could not sign in. Please try again.');

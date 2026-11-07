@@ -20,6 +20,7 @@ model User {
   role         Role     @default(PATRON)
   reviews      Review[]
   spaceBookings SpaceBooking[]
+  readingListEntries ReadingListEntry[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -44,11 +45,23 @@ model Book {
   genreId     String
   genre       Genre    @relation(fields: [genreId], references: [id], onDelete: Restrict)
   reviews     Review[]
+  readingListEntries ReadingListEntry[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([genreId])
   @@index([title])
+}
+
+model ReadingListEntry {
+  userId    String
+  bookId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@id([userId, bookId])
+  @@index([bookId])
 }
 
 model Review {

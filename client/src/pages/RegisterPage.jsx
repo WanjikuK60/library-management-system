@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiUrl } from '../api.js';
+import { useReadingList } from '../context/ReadingListContext.jsx';
 
 export default function RegisterPage() {
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const navigate = useNavigate();
+  const { mergeGuestList } = useReadingList();
 
   function updateField(event) {
     setForm((current) => ({ ...current, [event.target.name]: event.target.value }));
@@ -29,7 +31,10 @@ export default function RegisterPage() {
       if (!data.accessToken) {
         throw new Error('The server did not return an access token.');
       }
-      localStorage.setItem('token', data.accessToken);
+      if (!data.user?.id) {
+        throw new Error('The server did not return an account ID.');
+      }
+      await mergeGuestList(data.user.id, data.accessToken);
       navigate('/', { replace: true });
     } catch (requestError) {
       setError(requestError.message || 'Could not create your account. Please try again.');
