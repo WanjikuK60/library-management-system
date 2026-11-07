@@ -12,6 +12,13 @@ enum Role {
   LIBRARIAN
 }
 
+enum BorrowRequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  RETURNED
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -21,6 +28,7 @@ model User {
   reviews      Review[]
   spaceBookings SpaceBooking[]
   readingListEntries ReadingListEntry[]
+  borrowRequests BorrowRequest[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -46,11 +54,29 @@ model Book {
   genre       Genre    @relation(fields: [genreId], references: [id], onDelete: Restrict)
   reviews     Review[]
   readingListEntries ReadingListEntry[]
+  borrowRequests BorrowRequest[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([genreId])
   @@index([title])
+}
+
+model BorrowRequest {
+  id          String              @id @default(cuid())
+  userId      String
+  bookId      String
+  status      BorrowRequestStatus @default(PENDING)
+  requestedAt DateTime            @default(now())
+  processedAt DateTime?
+  dueDate     DateTime?           @db.Date
+  returnedAt  DateTime?
+  fineAmount  Int                 @default(0)
+  user        User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book        Book                @relation(fields: [bookId], references: [id], onDelete: Cascade)
+
+  @@index([userId, status])
+  @@index([bookId, status])
 }
 
 model ReadingListEntry {
