@@ -19,6 +19,7 @@ model User {
   passwordHash String
   role         Role     @default(PATRON)
   reviews      Review[]
+  spaceBookings SpaceBooking[]
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 }
@@ -62,5 +63,19 @@ model Review {
   updatedAt DateTime @updatedAt
 
   @@unique([bookId, userId])
+  @@index([userId])
+}
+
+model SpaceBooking {
+  id        String   @id @default(cuid())
+  userId    String
+  space     String
+  date      DateTime @db.Date
+  startTime String
+  endTime   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@index([space, date])
   @@index([userId])
 }

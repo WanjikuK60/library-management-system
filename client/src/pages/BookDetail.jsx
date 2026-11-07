@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { apiUrl } from '../api.js';
+import { useReadingList } from '../context/ReadingListContext.jsx';
 
 export default function BookDetail() {
   const { id } = useParams();
   const [book, setBook] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { books, addBook, removeBook } = useReadingList();
+  const isSaved = books.some((savedBook) => savedBook.id === book?.id);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -67,6 +70,13 @@ export default function BookDetail() {
           <p className="detail-author">by {book.author}</p>
           <div className="detail-rule" />
           {book.description && <p className="detail-description">{book.description}</p>}
+          <button
+            className="primary-button detail-save-button"
+            type="button"
+            onClick={() => (isSaved ? removeBook(book.id) : addBook(book))}
+          >
+            {isSaved ? 'Remove from reading list' : 'Add to reading list'}
+          </button>
           <dl className="book-facts">
             {book.genre && <div><dt>Genre</dt><dd>{book.genre.name}</dd></div>}
             {book.publishedAt && <div><dt>Published</dt><dd>{new Date(book.publishedAt).getFullYear()}</dd></div>}

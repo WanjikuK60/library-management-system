@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
+import { useReadingList } from '../context/ReadingListContext.jsx';
 
 const coverColors = ['cover-terracotta', 'cover-olive', 'cover-blue', 'cover-plum'];
 
 export default function BookCard({ book }) {
   const colorClass = coverColors[(book.title?.length || 0) % coverColors.length];
+  const { books, addBook, removeBook } = useReadingList();
+  const isSaved = books.some((savedBook) => savedBook.id === book.id);
 
   return (
     <article className="book-card">
@@ -19,6 +22,14 @@ export default function BookCard({ book }) {
           <p>{book.author}</p>
         </div>
       </Link>
+      <button
+        className="save-book-button"
+        type="button"
+        onClick={() => (isSaved ? removeBook(book.id) : addBook(book))}
+        aria-pressed={isSaved}
+      >
+        {isSaved ? 'Remove from list' : 'Add to reading list'}
+      </button>
     </article>
   );
 }

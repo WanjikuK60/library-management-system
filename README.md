@@ -34,7 +34,7 @@ npm install
 npm run dev
 ```
 
-The checked-in `client/.env` points `VITE_API_URL` at `http://localhost:3000`, the API's default local address. Change it when the API runs elsewhere. The client includes catalog search and genre filtering, plus a detail page for each book.
+The checked-in `client/.env` points `VITE_API_URL` at `http://localhost:3000`, the API's default local address. Change it when the API runs elsewhere. The client includes catalog search and genre filtering, a persisted reading list, account registration and login, and a protected space-booking form. Authenticated bookings are stored by `POST /bookings`; overlapping bookings for the same space and date are rejected.
 
 ## Schema Decisions
 
